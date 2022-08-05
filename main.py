@@ -36,38 +36,22 @@ def scrap():
             art = soup.find_all('li', class_=['s-item s-item__pl-on-bottom s-item--watch-at-corner',
                                               's-item s-item__pl-on-bottom',
                                               's-item s-item__pl-on-bottom s-item--watch-at-corner s-item__before-answer'])
-            tar = soup.find_all('li', class_=['s-item s-item__pl-on-bottom',
-                                              's-item s-item__pl-on-bottom s-item--watch-at-corner',
-                                              's-item s-item__pl-on-bottom s-item--watch-at-corner s-item__before-answer'])
 
-            # eBay section using 'art' as class
+            # look for particular elements describing product
             for x in art:
                 try:
                     name = x.find('h3', class_='s-item__title').text
-                    price = x.find('div', class_='s-item__detail s-item__detail--primary').text
-                    shipping = x.find('span', class_='s-item__shipping s-item__logisticsCost').text
-                    prod_link = x.find('a')['href']
-                    con = x.find('div', class_='s-item__subtitle').text.split('·')
-                    condition, brand_name, model_name, gpx_mem = con[0], con[1], con[2], con[3]
-
-                    _writer.writerow([name, condition, price, shipping, prod_link])
-
-                except:
-                    pass
-
-            # eBay section using 'tar' as class
-            for n in tar:
-                try:
-                    name = n.find('h3', class_='s-item__title').text
-                    state = n.find('span', class_='SECONDARY_INFO').text
-                    prc = n.find('span', class_='s-item__price').text
-                    shp = n.find('span', class_='s-item__shipping s-item__logisticsCost').text
-                    link = n.find('a')['href']
+                    state = x.find('span', class_='SECONDARY_INFO').text
+                    prc = x.find('span', class_='s-item__price').text
+                    shp = x.find('span', class_='s-item__shipping s-item__logisticsCost').text
+                    link = x.find('a')['href']
 
                     _writer.writerow([name, state, prc, shp, link])
 
+
                 except:
                     pass
+
     return _writer
 
 
