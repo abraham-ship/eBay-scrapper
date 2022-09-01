@@ -40,7 +40,7 @@ def scrap():
             # look for particular elements describing product
             for x in art:
                 try:
-                    name = x.find('h3', class_='s-item__title').text
+                    name = x.find('div', class_='s-item__title').text
                     state = x.find('span', class_='SECONDARY_INFO').text
                     prc = x.find('span', class_='s-item__price').text
                     shp = x.find('span', class_='s-item__shipping s-item__logisticsCost').text
@@ -57,5 +57,3 @@ def scrap():
 
 if __name__ == '__main__':
     scrap()
-
-
