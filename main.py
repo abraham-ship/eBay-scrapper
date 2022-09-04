@@ -9,7 +9,7 @@ ROOT = tk.Tk()
 
 ROOT.withdraw()
 # item input
-item = simpledialog.askstring(title='Item', prompt='What item are you looking for?')
+item = simpledialog.askstring(title='Item', prompt='What item are you looking for?').replace(' ', '+')
 
 ROOT = tk.Tk()
 
@@ -33,6 +33,8 @@ def scrap():
                 headers=header).text
             sleep(2)
             soup = BeautifulSoup(page, 'lxml')
+            for span in soup.find_all('span', class_='LIGHT_HIGHLIGHT'):
+                span.decompose()
             art = soup.find_all('li', class_=['s-item s-item__pl-on-bottom s-item--watch-at-corner',
                                               's-item s-item__pl-on-bottom',
                                               's-item s-item__pl-on-bottom s-item--watch-at-corner s-item__before-answer'])
